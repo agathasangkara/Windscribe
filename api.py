@@ -2,18 +2,21 @@ try:
     import requests as r, os, sys as s
     from colorama import Fore as x
     from faker import Faker as f
+    from datetime import datetime
 except Exception as e:
-    s.exit(f" {x.RED}Some library not installed | pip install -r requirements.txt")
+    print(f" {x.RED}Some library not installed | pip install -r requirements.txt")
+    exit(1)
 
 
 class Windscribe:
 
     def __init__(self) -> None:
         self.api = r.Session()
-        self.hash = "6d772ab972f389264572ccec9be56ce8" #change / u can intercept app windscribe to get this string
-        self.timestamp = "1700038279400" #change / u can intercept app windscribe to get this string
         self.password = "@Sangkara123"
-    
+        self.hash = "6d772ab972f389264572ccec9be56ce8" #change / u can intercept app windscribe to get this             
+        self.timestamp = "1700038279400" #change / u can intercept app windscribe to get this string
+        # self.timestamp = str(int(datetime.now().timestamp() * 1000))
+        
     def create_account(self, username, email):
         try:
             headers = {

@@ -3,9 +3,16 @@ try:
     from colorama import Fore as x
     import requests as r, sys as s, random, os
 except Exception as e:
-    s.exit(f" {x.RED}Some library not installed | pip install -r requirements.txt")
+    print(f" {x.RED}Some library not installed | pip install -r requirements.txt")
+    exit(1)
+
+
+code = "EDIT_YOUR_VOUCHERCODE_HERE" # code / voucher
 
 os.system('cls' if os.name == "nt" else 'clear')
+# Enable ansi escape colors for windows.
+if os.name == "nt":
+    os.system("color")
 try:
     datauser = r.get("http://api.suhu.my.id/v2/faker", headers={"User-Agent": "PanelNewbie/0.2 (Linux; rdhoni;) Termux/0.2"}).json()
     username = datauser["nama"].replace(" ","").lower()
@@ -19,7 +26,6 @@ try:
             # Verify Email Temporary Account
             msg = Windscribe().verify_email(email)
             verify = r.get(f"{msg.split('Confirm Email (for 10GB) ( ')[1].split(' )')[0]}", headers={"User_Agent":"Mozilla/5.0 (Linux; Android 10; Redmi Note 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36"})
-            code = "" # code / voucher
             claim = Windscribe().claim_voucher(code, session)
             if claim.json()["success"] == 0:
                 print(f' {claim.json()["message"]} | {x.RED}Failed Approved\n')
