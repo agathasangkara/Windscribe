@@ -2,6 +2,7 @@ try:
     import requests as r, os, sys as s
     from colorama import Fore as x
     from faker import Faker as f
+    import time as t, hashlib
 except Exception as e:
     s.exit(f" {x.RED}Some library not installed | pip install -r requirements.txt")
 
@@ -10,8 +11,8 @@ class Windscribe:
 
     def __init__(self) -> None:
         self.api = r.Session()
-        self.hash = "6d772ab972f389264572ccec9be56ce8" #change / u can intercept app windscribe to get this string
-        self.timestamp = "1700038279400" #change / u can intercept app windscribe to get this string
+        self.hash = hashlib.md5(b"952b4412f002315aa50751032fcaab03" + str(self.time).encode()).hexdigest()
+        self.timestamp = int(round(t.time() * 1000))
         self.password = "@Sangkara123"
     
     def create_account(self, username, email):
